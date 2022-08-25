@@ -82,27 +82,37 @@ class UserViewModel @Inject constructor(
     fun searchCityByGeoPosition(navController: NavController) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
-            locationTracker.getCurrentLocation()?.let { location ->
-                // Api call requires coordinates as a text coma-separated lat/lon pair
-                val newLocation = "${location.latitude},${location.longitude}"
-                userUseCases.locationUseCase(newLocation)
-                cityUseCases.searchCityByGeoPositionUseCase(
-                    query = newLocation,
-                    language = account.value.account!!.language)
-                    .collectLatest { result ->
-                        when (result) {
-                            is Resource.Success -> {
-                                userUseCases.cityUseCase.addCity(result.data!!)
-                                navController.navigate(Screens.Forecast.route)
+            locationTracker.getCurrentLocation().let { location ->
+                when (location) {
+                    is Resource.Success -> {
+                        // Api call requires coordinates as a text coma-separated lat/lon pair
+                        val newLocation = "${location.data!!.latitude},${location.data.longitude}"
+                        // Add location
+                        userUseCases.locationUseCase(newLocation)
+                        // Search location with api
+                        cityUseCases.searchCityByGeoPositionUseCase(
+                            location = newLocation,
+                            language = account.value.account!!.language)
+                            .collectLatest { result ->
+                                when (result) {
+                                    is Resource.Success -> {
+                                        userUseCases.cityUseCase.updateCurrentCity(
+                                            model = result.data!!,
+                                            userId = 0
+                                        )
+                                        navController.navigate(Screens.Forecast.route)
+                                    }
+                                    is Resource.Error -> {
+                                        Log.e(TAG, "Error while searching location, ${result.message}")
+                                    }
+                                }
                             }
-                            is Resource.Error -> {}
-                        }
                     }
-            } ?: kotlin.run {
-                userUseCases.locationUseCase(null)
-                Log.e(TAG, "fix")
+                    is Resource.Error -> {
+                        Log.e(TAG, location.message ?: "")
+                    }
+                }
             }
-
         }
     }
 
@@ -173,8 +183,6 @@ class UserViewModel @Inject constructor(
     fun updateCurrentCity(city: CityModel, navController: NavController) {
         accountJob?.cancel()
         accountJob = viewModelScope.launch {
-            // Add city to Saved Cities
-            userUseCases.cityUseCase.addCity(city)
             // Bind selected city with user
             userUseCases.cityUseCase.updateCurrentCity(city, account.value.account!!.accountId)
             // Navigate to Forecast Screen

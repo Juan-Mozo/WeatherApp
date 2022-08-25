@@ -4,4 +4,6 @@
     <style name="Theme.WeatherApp" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/transparent</item>
     </style>
+
+
 </resources>

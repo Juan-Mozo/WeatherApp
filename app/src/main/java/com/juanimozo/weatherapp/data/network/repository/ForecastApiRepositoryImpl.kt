@@ -25,7 +25,7 @@ class ForecastApiRepositoryImpl @Inject constructor(
             // Get hourly forecast from AccuWeatherApi
             val hourlyForecastDto = api.getHourlyForecast(locationKey, language, metric)
             // Convert dto to model
-            val hourlyForecast = ConvertForecastDto().toHourlyForecastModel(hourlyForecastDto.HourlyForecast)
+            val hourlyForecast = ConvertForecastDto().toHourlyForecastModel(hourlyForecastDto)
             // Emit result
             emit(Resource.Success(data = hourlyForecast))
         } catch (e: HttpException) {
@@ -55,7 +55,7 @@ class ForecastApiRepositoryImpl @Inject constructor(
             // Get current forecast conditions from AccuWeatherApi
             val currentForecastDto = api.getCurrentConditions(locationKey)
             // Convert dto to model. Just take the first result
-            val currentConditions = ConvertForecastDto().toCurrentConditionsModel(currentForecastDto.currentConditions)
+            val currentConditions = ConvertForecastDto().toCurrentConditionsModel(currentForecastDto)
             // Emit result
             emit(Resource.Success(data = currentConditions))
         } catch (e: HttpException) {

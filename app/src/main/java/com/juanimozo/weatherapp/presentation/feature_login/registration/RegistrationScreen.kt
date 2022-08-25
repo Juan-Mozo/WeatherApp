@@ -4,27 +4,25 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.juanimozo.core_util.language.Language
 import com.juanimozo.weatherapp.R
 import com.juanimozo.weatherapp.presentation.feature_login.UserViewModel
-import com.juanimozo.weatherapp.ui.theme.LightGrey
-import com.juanimozo.weatherapp.ui.theme.Shapes
-import com.juanimozo.weatherapp.ui.theme.Size
+import com.juanimozo.weatherapp.ui.theme.*
 
 @Composable
 fun RegistrationScreen(navController: NavController) {
@@ -37,23 +35,31 @@ fun RegistrationScreen(navController: NavController) {
         Box (
             modifier = Modifier.fillMaxWidth().height(250.dp)
         ) {
-            Box(modifier = Modifier.fillMaxSize()) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
                 Image(
                     modifier = Modifier.fillMaxSize(),
                     painter = painterResource(id = R.drawable.registration_header),
                     contentDescription = "A colourful cartoon style image of a park",
-                    contentScale = ContentScale.Fit
+                    contentScale = ContentScale.Crop
                 )
             }
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(Size.Padding.small),
-                contentAlignment = Alignment.BottomStart
+                    .padding(Values.Padding.small),
+                contentAlignment = Alignment.TopCenter
             ) {
                 Text (
+                    modifier = Modifier.padding(top = Values.Padding.medium),
                     text = "Sign Up",
-                    style = MaterialTheme.typography.h1,
+                    style = TextStyle(
+                        fontFamily = Fonts.MontserratSemiBold,
+                        fontSize = 42.sp,
+                        color = White
+                    ),
                 )
             }
         }
@@ -61,21 +67,21 @@ fun RegistrationScreen(navController: NavController) {
         // Insert user name
         Column (
             modifier = Modifier
+                .padding(vertical = Values.Padding.medium)
                 .fillMaxWidth()
-                .fillMaxHeight(0.2f)
-                .padding(vertical = Size.Padding.small),
+                .fillMaxHeight(0.2f),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Text(
-                modifier = Modifier.padding(bottom = Size.Padding.small),
+                modifier = Modifier.padding(bottom = Values.Padding.small),
                 text = "Name",
                 style = MaterialTheme.typography.h2
             )
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = Size.Padding.medium),
+                    .padding(horizontal = Values.Padding.medium),
                 value = viewModel.registrationState.value.userName,
                 onValueChange = { query -> viewModel.onEvent(RegistrationEvents.UpdateNameField(query)) },
                 leadingIcon = { Icon(imageVector = Icons.Default.Person, contentDescription = "Person") },
@@ -90,14 +96,15 @@ fun RegistrationScreen(navController: NavController) {
 
         // List of languages to select
         Column (
-            modifier = Modifier
+            modifier = Modifier.
+                padding(vertical = Values.Padding.medium)
                 .fillMaxWidth()
                 .fillMaxHeight(0.75f),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
             Text(
-                modifier = Modifier.padding(bottom = Size.Padding.small),
+                modifier = Modifier.padding(bottom = Values.Padding.medium),
                 text = "Language",
                 style = MaterialTheme.typography.h2
             )
@@ -118,7 +125,7 @@ fun RegistrationScreen(navController: NavController) {
                     Divider(
                         modifier = Modifier
                             .fillMaxWidth(0.5f)
-                            .padding(vertical = Size.Padding.small),
+                            .padding(vertical = Values.Padding.small),
                         color = MaterialTheme.colors.primary
                     )
                 }

@@ -56,7 +56,7 @@ fun DailyForecastItem(item: DailyForecastModel) {
         ) {
             val maximum = item.Temperature.Maximum
             val minimum = item.Temperature.Minimum
-            Text(text = "Max: ${TemperatureFormat.formatIntTemperature(maximum.Value, maximum.Unit)}")
+            Text(text = "Max: ${TemperatureFormat.formatDoubleTemperature(maximum.Value, maximum.Unit)}")
             Text(text = "Min: ${TemperatureFormat.formatDoubleTemperature(minimum.Value, minimum.Unit)}")
         }
     }
@@ -88,7 +88,7 @@ fun DailyForecastPreview() {
                     Maximum = Maximum(
                         "c",
                         2,
-                        25
+                        25.5
                     ),
                     Minimum = Minimum(
                         "c",

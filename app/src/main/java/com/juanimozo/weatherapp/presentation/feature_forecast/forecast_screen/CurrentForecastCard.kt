@@ -9,9 +9,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.juanimozo.weatherapp.data.forecast.Forecast
 import com.juanimozo.weatherapp.ui.theme.Shapes
 import com.juanimozo.weatherapp.domain.model.CurrentConditionsModel
 import com.juanimozo.weatherapp.navigation.Screens
+import com.juanimozo.weatherapp.ui.theme.Values
 import com.valentinilk.shimmer.shimmer
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -37,46 +39,7 @@ fun CurrentForecastCard(
             backgroundColor = MaterialTheme.colors.primary,
             onClick = { navController.navigate(Screens.CurrentForecastDetails.route) }
         ) {
-            Row(modifier = Modifier.fillMaxWidth()) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(0.3f),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    // ToDo:: -ForecastScreen- *2* / Priority: M
-                    // Description: Add Icons
-                    Icon(
-                        modifier = Modifier.padding(4.dp),
-                        imageVector = Icons.Default.Star,
-                        contentDescription = "Star"
-                    )
-                }
-                Column(
-                    modifier = Modifier.fillMaxWidth(0.3f),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        // ToDo:: -ForecastScreen- *3* / Priority: M
-                        // Description: Format temperature
-                        text = currentConditions.Temperature.toString()
-                    )
-                }
-                Column(
-                    modifier = Modifier.fillMaxWidth(0.3f),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        // ToDo:: -ForecastScreen- *4* / Priority: M
-                        // Description: Format CloudCover and add icons
-                        Text(text = currentConditions.CloudCover.toString())
-                    }
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        Text(text = "Feels like: $currentConditions.RealFeelTemperature")
-                    }
-                }
-            }
+            CurrentForecastCardContent(currentConditions = currentConditions)
         }
     } else {
         Card(
@@ -88,38 +51,73 @@ fun CurrentForecastCard(
             backgroundColor = MaterialTheme.colors.primary,
             onClick = { navController.navigate(Screens.CurrentForecastDetails.route) }
         ) {
-            Row(modifier = Modifier.fillMaxWidth()) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(0.3f),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(
-                        modifier = Modifier.padding(4.dp),
-                        imageVector = Icons.Default.Star,
-                        contentDescription = "Star"
-                    )
-                }
-                Column(
-                    modifier = Modifier.fillMaxWidth(0.3f),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(text = "")
-                }
-                Column(
-                    modifier = Modifier.fillMaxWidth(0.3f),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        Text(text = "")
-                    }
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        Text(text = "")
-                    }
-                }
-            }
+            CurrentForecastCardContent(currentConditions = null)
+        }
+    }
+}
+
+@Composable
+fun CurrentForecastCardContent(currentConditions: CurrentConditionsModel?) {
+
+    val weather: Forecast.Weather = Forecast().setWeatherWithPrecipitation(
+        hasPrecipitation = currentConditions?.HasPrecipitation ?: false,
+        isDayTime = currentConditions?.IsDayTime ?: true,
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth(0.5f)
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(Values.Padding.small)
+                .fillMaxWidth(),
+        ) {
+            Text(
+                text = "Currently",
+                style = MaterialTheme.typography.subtitle1)
+        }
+        Row(
+            modifier = Modifier
+                .padding(Values.Padding.small)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            val temperatureText: String = currentConditions?.Temperature?.Metric?.Value.toString() ?: ""
+            Text(
+                // ToDo:: -ForecastScreen- *3* / Priority: M
+                // Description: Format temperature
+                text = temperatureText,
+                style = MaterialTheme.typography.body1
+            )
+        }
+        Row(
+            modifier = Modifier
+                .padding(Values.Padding.small)
+                .fillMaxWidth()
+        ) {
+            val realFeelTemperatureText: String = currentConditions?.RealFeelTemperature?.Metric?.Value.toString()
+            Text(
+                text = "Feels like: $realFeelTemperatureText",
+                style = MaterialTheme.typography.body1
+            )
+        }
+    }
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.Center
+    ) {
+        Row(modifier = Modifier.fillMaxWidth()) {
+
+        }
+        Row(modifier = Modifier.fillMaxWidth()) {
+            // ToDo:: -ForecastScreen- *4* / Priority: M
+            // Description: Format CloudCover and add icons
+            val cloudCoverText: String = currentConditions?.CloudCover?.toString() ?: ""
+            Text(
+                text = cloudCoverText,
+                style = MaterialTheme.typography.body1
+            )
         }
     }
 }

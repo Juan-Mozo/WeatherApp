@@ -7,17 +7,15 @@ import com.juanimozo.weatherapp.domain.repository.UserDatabaseRepository
 class CityUseCase(
     private val repository: UserDatabaseRepository
 ) {
-    suspend fun addCity(model: CityModel) {
-        val city = cityModelToCityEntity(model)
-        repository.addCity(city)
-    }
-
     suspend fun deleteCity(model: CityModel) {
         val city = cityModelToCityEntity(model)
         repository.deleteCity(city)
     }
 
     suspend fun updateCurrentCity(model: CityModel, userId: Int) {
+        val city = cityModelToCityEntity(model)
+        repository.addCity(city)
+
         repository.updateCurrentCity(model.Key.toInt(), userId)
     }
 

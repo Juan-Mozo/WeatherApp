@@ -1,4 +1,4 @@
-package com.juanimozo.feature_forecast.presentation.util
+package com.juanimozo.weatherapp.presentation.feature_forecast.util
 
 import android.os.Build
 import java.text.SimpleDateFormat

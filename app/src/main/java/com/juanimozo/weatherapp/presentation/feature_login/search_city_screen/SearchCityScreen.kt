@@ -9,13 +9,11 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.juanimozo.weatherapp.presentation.city.CityItem
 import com.juanimozo.weatherapp.presentation.feature_login.UserViewModel
-import com.juanimozo.weatherapp.presentation.feature_login.registration.RegistrationEvents
-import com.juanimozo.weatherapp.ui.theme.Size
+import com.juanimozo.weatherapp.ui.theme.Values
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -34,7 +32,7 @@ fun SearchCityScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = Size.Padding.large),
+                .padding(top = Values.Padding.large),
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
@@ -43,11 +41,11 @@ fun SearchCityScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(Size.Spacer.large))
+        Spacer(modifier = Modifier.height(Values.Spacer.large))
 
         Row(
             modifier = Modifier
-                .padding(horizontal = Size.Padding.large)
+                .padding(horizontal = Values.Padding.large)
                 .fillMaxWidth()
         ) {
             Card(
@@ -55,7 +53,7 @@ fun SearchCityScreen(
                 onClick = { viewModel.searchCityByGeoPosition(navController)}
             ) {
                 Box(
-                    modifier = Modifier.padding(Size.Padding.medium),
+                    modifier = Modifier.padding(Values.Padding.medium),
                     contentAlignment = Alignment.CenterStart
                 ) {
                     Text(text = "Search with location")
@@ -63,14 +61,14 @@ fun SearchCityScreen(
             }
         }
 
-        Spacer(modifier = Modifier.height(Size.Spacer.medium))
+        Spacer(modifier = Modifier.height(Values.Spacer.medium))
 
         // Search city by name
         Row(modifier = Modifier.fillMaxWidth()) {
             TextField(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = Size.Padding.medium),
+                    .padding(horizontal = Values.Padding.medium),
                 value = viewModel.cityState.value.searchQuery,
                 onValueChange = { query ->
                     viewModel.searchCityByName(query) },
@@ -86,7 +84,7 @@ fun SearchCityScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(Size.Spacer.small))
+        Spacer(modifier = Modifier.height(Values.Spacer.small))
 
         // Results
         Column (
@@ -95,6 +93,8 @@ fun SearchCityScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
+            // ToDo:: -1- *FIX* / Priority: HIGH
+            // Description: Doesn't show
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -108,7 +108,7 @@ fun SearchCityScreen(
                     )
                     Divider(
                         color = MaterialTheme.colors.onBackground,
-                        modifier = Modifier.padding(vertical = Size.Padding.small)
+                        modifier = Modifier.padding(vertical = Values.Padding.small)
                     )
                 }
             }

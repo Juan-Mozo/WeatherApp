@@ -2,7 +2,7 @@ package com.juanimozo.weatherapp.ui.theme
 
 import androidx.compose.ui.unit.dp
 
-class Size {
+class Values {
 
     class Card {
         companion object {
