@@ -18,6 +18,10 @@ import com.juanimozo.weatherapp.presentation.feature_login.search_city_screen.Ci
 import com.juanimozo.weatherapp.presentation.feature_login.registration.RegistrationState
 import com.juanimozo.weatherapp.presentation.feature_login.auth_screen.UserState
 import com.juanimozo.weatherapp.presentation.feature_login.auth_screen.UserStatus
+import com.juanimozo.weatherapp.presentation.feature_login.configuration.ConfigurationEvents
+import com.juanimozo.weatherapp.presentation.feature_login.configuration.ConfigurationState
+import com.juanimozo.weatherapp.util.language.Language
+import com.juanimozo.weatherapp.util.unit.Unit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -36,6 +40,9 @@ class UserViewModel @Inject constructor(
 
     private val _registrationState = mutableStateOf(RegistrationState())
     val registrationState: State<RegistrationState> = _registrationState
+
+    private val _configurationState = mutableStateOf(ConfigurationState())
+    val configurationState: State<ConfigurationState> = _configurationState
 
     private val _cityState = mutableStateOf(CityState())
     val cityState: State<CityState> = _cityState
@@ -139,6 +146,7 @@ class UserViewModel @Inject constructor(
                             )
                             // Check whether the user has a city selected
                             if (result.data.currentCityLocationKey != null) {
+                                // Update account state
                                 _accountResult.value = account.value.copy(
                                     account = loadedAccount,
                                     userStatus = UserStatus.FullyRegistered()
@@ -149,7 +157,11 @@ class UserViewModel @Inject constructor(
                                     userStatus = UserStatus.RegisteredWithoutCity()
                                 )
                             }
-
+                            // Update account configuration
+                            _configurationState.value = configurationState.value.copy(
+                                language = Language.stringToLanguage(loadedAccount.language),
+                                unit = Unit.booleanToUnit(loadedAccount.metric)
+                            )
                         } else {
                             _accountResult.value = account.value.copy(
                                 account = null,
@@ -190,7 +202,32 @@ class UserViewModel @Inject constructor(
         }
     }
 
-    fun onEvent(event: RegistrationEvents) {
+    fun updateLanguage(navController: NavController) {
+        accountJob?.cancel()
+        accountJob = viewModelScope.launch {
+            // Bind selected city with user
+            userUseCases.updateLanguageUseCase(
+                language = configurationState.value.language,
+                id = account.value.account!!.accountId
+            )
+            // Navigate to Forecast Screen
+            navController.navigate(Screens.Forecast.route)
+        }
+    }
+
+    fun updateUnit(navController: NavController) {
+        accountJob?.cancel()
+        accountJob = viewModelScope.launch {
+            // Bind selected city with user
+            userUseCases.updateUnitUseCase(
+                unit = configurationState.value.unit,
+                id = account.value.account!!.accountId)
+            // Navigate to Forecast Screen
+            navController.navigate(Screens.Forecast.route)
+        }
+    }
+
+    fun onRegistrationEvent(event: RegistrationEvents) {
         when (event) {
             is RegistrationEvents.SelectLanguage -> {
                 _registrationState.value = registrationState.value.copy(
@@ -206,6 +243,21 @@ class UserViewModel @Inject constructor(
                     // ToDo:: -Auth- *1* / Priority: M
                     // Description: Add "Insert a valid name" snackbar
                 }
+            }
+        }
+    }
+
+    fun onConfigurationEvent(event: ConfigurationEvents) {
+        when (event) {
+            is ConfigurationEvents.SelectLanguage -> {
+                _configurationState.value = configurationState.value.copy(
+                    language = event.language
+                )
+            }
+            is ConfigurationEvents.SelectUnit -> {
+                _configurationState.value = configurationState.value.copy(
+                    unit = event.unit
+                )
             }
         }
     }

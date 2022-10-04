@@ -5,6 +5,8 @@ import com.juanimozo.weatherapp.data.database.forecast.entity.AccountEntity
 import com.juanimozo.weatherapp.data.database.forecast.entity.CityEntity
 import com.juanimozo.weatherapp.util.resource.Resource
 import com.juanimozo.weatherapp.domain.repository.UserDatabaseRepository
+import com.juanimozo.weatherapp.util.language.Language
+import com.juanimozo.weatherapp.util.unit.Unit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -14,6 +16,10 @@ class UserDatabaseRepositoryImpl(
 
     override suspend fun createAccount(account: AccountEntity) {
         db.insertAccount(account)
+    }
+
+    override suspend fun deleteAccount(id: Int) {
+        db.deleteAccount(id)
     }
 
     override suspend fun addCity(city: CityEntity) {
@@ -26,6 +32,14 @@ class UserDatabaseRepositoryImpl(
 
     override suspend fun updateCurrentCity(cityKey: Int, id: Int) {
         db.updateCurrentCity(cityKey, id)
+    }
+
+    override suspend fun updateLanguage(language: Language, id: Int) {
+        db.updateLanguage(language.abbr, id)
+    }
+
+    override suspend fun updateUnit(unit: Unit, id: Int) {
+        db.updateUnit(unit.isMetric, id)
     }
 
     override suspend fun updateLocation(location: String?) {

@@ -4,19 +4,29 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.juanimozo.weatherapp.R
 import com.juanimozo.weatherapp.presentation.feature_forecast.ForecastViewModel
+import com.juanimozo.weatherapp.presentation.feature_forecast.animations.LoadingAnimation
+import com.juanimozo.weatherapp.presentation.feature_forecast.forecast_screen.components.CurrentForecastCard
+import com.juanimozo.weatherapp.presentation.feature_forecast.forecast_screen.components.daily.DailyForecastItem
+import com.juanimozo.weatherapp.presentation.feature_forecast.forecast_screen.components.HourlyForecastItem
+import com.juanimozo.weatherapp.ui.components.navigation_drawer.AppBar
+import com.juanimozo.weatherapp.ui.components.navigation_drawer.DrawerBody
+import com.juanimozo.weatherapp.ui.components.navigation_drawer.DrawerHeader
+import com.juanimozo.weatherapp.ui.components.navigation_drawer.MenuItem
 import com.juanimozo.weatherapp.presentation.feature_forecast.util.DateTime
 import com.juanimozo.weatherapp.ui.theme.Values
+import kotlinx.coroutines.launch
 
 @Composable
 fun ForecastScreen(
@@ -26,62 +36,118 @@ fun ForecastScreen(
     val viewModel: ForecastViewModel = hiltViewModel()
     val forecastState = viewModel.forecastState.value
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
+    val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
 
-        // City Name
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            // ToDo:: -1- *ForecastScreen* / Priority: H
-            // Description: add getCityName
-            Text(
-                text = "Buenos Aires",
-                style = MaterialTheme.typography.h1
+    Scaffold(
+        scaffoldState = scaffoldState,
+        topBar = {
+                 AppBar(
+                     onNavigationClick = {
+                         scope.launch {
+                             scaffoldState.drawerState.open()
+                         }
+                     },
+                     // City Name
+                     title = viewModel.forecastState.value.currentCityName,
+                     icon = Icons.Default.Menu
+                 )
+        },
+        drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
+        drawerContent = {
+            DrawerHeader()
+            DrawerBody(
+                items = MenuItem.getItems(),
+                onItemClick = { item ->
+                    when (item) {
+                        is MenuItem.LogOut -> { viewModel.deleteAccount(navController, item.route) }
+                        else -> {
+                            // Navigate to defined route
+                            navController.navigate(item.route)
+                        }
+                    }
+                }
             )
         }
+    ) { scaffoldPadding ->
+        if (viewModel.forecastState.value.isContentLoaded) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(scaffoldPadding)
+            ) {
+                // Time and Day of the week
+                Row(
+                    modifier = Modifier
+                        .padding(vertical = Values.Padding.medium)
+                        .fillMaxWidth()
+                ) {
+                    Text(
+                        modifier = Modifier.padding(start = Values.Padding.large),
+                        text = DateTime().getDateTime(DateTime.Format.HourDay),
+                        style = MaterialTheme.typography.subtitle1
+                    )
+                }
 
-        // Time and Day of the week
-        Row(
-            modifier = Modifier
-                .padding(vertical = Values.Padding.small)
-                .fillMaxWidth()
-        ) {
-            Text(
-                modifier = Modifier.padding(start = Values.Padding.large),
-                text = DateTime(DateTime.Format.HourDay).getDateTime(),
-                style = MaterialTheme.typography.subtitle1
-            )
-        }
+                Spacer(modifier = Modifier.height(Values.Spacer.small))
 
-        Spacer(modifier = Modifier.height(16.dp))
+                // Card with current temperature
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    CurrentForecastCard(
+                        currentConditions = forecastState.currentCondition,
+                        navController = navController
+                    )
+                }
 
-        // Card with current temperature
-        Row(modifier = Modifier.fillMaxWidth()) {
-            CurrentForecastCard(
-                currentConditions = forecastState.currentCondition,
-                navController = navController
-            )
-        }
+                Spacer(modifier = Modifier.height(Values.Spacer.medium))
 
-        Spacer(modifier = Modifier.height(16.dp))
+                // Row with all hourly forecast
+                LazyRow(modifier = Modifier.fillMaxWidth()) {
+                    items(forecastState.hourlyForecast) { hourly ->
+                        HourlyForecastItem(item = hourly)
+                    }
+                }
 
-        // Row with all hourly forecast
-        LazyRow(modifier = Modifier.fillMaxWidth()) {
-            items(forecastState.hourlyForecast) { hourly ->
-                HourlyForecastItem(item = hourly)
+                Spacer(modifier = Modifier.height(Values.Spacer.medium))
+
+                Divider(
+                    thickness = 2.dp,
+                    modifier = Modifier.padding(vertical = Values.Padding.small),
+                    color = MaterialTheme.colors.primaryVariant
+                )
+
+                // Spacer(modifier = Modifier.height(Values.Spacer.medium))
+
+                // Column with weekly forecast
+                LazyColumn(modifier = Modifier.fillMaxWidth()) {
+                    items(forecastState.weeklyForecast) { daily ->
+                        DailyForecastItem(item = daily)
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Divider(
+                                modifier = Modifier
+                                    .padding(vertical = Values.Padding.small)
+                                    .fillMaxWidth(0.75f),
+                                color = MaterialTheme.colors.primaryVariant
+                            )
+                        }
+                    }
+                }
             }
-        }
-
-        Divider(thickness = 2.dp, modifier = Modifier.padding(vertical = 4.dp))
-
-        // Column with all daily forecast
-        LazyColumn(modifier = Modifier.fillMaxWidth()) {
-            items(forecastState.weeklyForecast) { daily ->
-                DailyForecastItem(item = daily)
+        } else {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(scaffoldPadding)
+                ,
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                LoadingAnimation(
+                    animation = R.raw.loading_animation
+                )
             }
         }
     }

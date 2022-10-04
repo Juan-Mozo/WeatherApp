@@ -11,8 +11,10 @@ val GreyTeal = Color(0xFF7D9D9C)
 val LightGreyTeal = Color(0xFF93B8B6)
 
 val DarkNavy = Color(0xFF3F4E4F)
+val DarkNavySemiTransparent = Color(0xBE3F4E4F)
 
 val Brown = Color(0xFFA27B5C)
 val LightBrown = Color(0xFFB48A68)
 
 val Beige = Color(0xFFE4DCCF)
+val BeigeSemiTransparent = Color(0xC1E4DCCF)

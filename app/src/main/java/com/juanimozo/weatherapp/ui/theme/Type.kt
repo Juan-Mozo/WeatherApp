@@ -4,39 +4,43 @@ import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 
-// ToDo:: -1- *Project* / Priority: L
-// Description: add letter spacing
-
 // Light Theme Text Styles
 val LightTypography = Typography(
     h1 = TextStyle(
         fontFamily = Fonts.MontserratSemiBold,
-        fontSize = 32.sp,
-        color = DarkGreyTeal
+        fontSize = 38.sp,
+        color = DarkGreyTeal,
+        letterSpacing = 1.5.sp
     ),
     h2 = TextStyle(
         fontFamily = Fonts.MontserratMedium,
-        fontSize = 26.sp,
-        color = GreyTeal
+        fontSize = 30.sp,
+        color = GreyTeal,
+        letterSpacing = 1.5.sp
     ),
     subtitle1 = TextStyle(
         fontFamily = Fonts.MontserratRegular,
-        fontSize = 20.sp,
+        fontSize = 24.sp,
         color = Brown
     ),
     subtitle2 = TextStyle(
         fontFamily = Fonts.MontserratRegular,
-        fontSize = 20.sp,
+        fontSize = 24.sp,
         color = Beige
     ),
     body1 = TextStyle(
         fontFamily = Fonts.QuickSandRegular,
-        fontSize = 16.sp,
+        fontSize = 20.sp,
         color = DarkNavy
+    ),
+    body2 = TextStyle(
+        fontFamily = Fonts.QuickSandRegular,
+        fontSize = 14.sp,
+        color = DarkNavySemiTransparent
     ),
     button = TextStyle(
         fontFamily = Fonts.QuickSandRegular,
-        fontSize = 16.sp,
+        fontSize = 20.sp,
         color = Beige
     )
 )
@@ -45,32 +49,37 @@ val LightTypography = Typography(
 val DarkTypography = Typography(
     h1 = TextStyle(
         fontFamily = Fonts.MontserratSemiBold,
-        fontSize = 32.sp,
-        color = Brown
+        fontSize = 38.sp,
+        color = LightGreyTeal
     ),
     h2 = TextStyle(
         fontFamily = Fonts.MontserratMedium,
-        fontSize = 26.sp,
+        fontSize = 30.sp,
         color = Beige
     ),
     subtitle1 = TextStyle(
         fontFamily = Fonts.MontserratRegular,
-        fontSize = 20.sp,
+        fontSize = 24.sp,
         color = Beige
     ),
     subtitle2 = TextStyle(
         fontFamily = Fonts.MontserratRegular,
-        fontSize = 20.sp,
-        color = Beige
+        fontSize = 24.sp,
+        color = LightGrey
     ),
     body1 = TextStyle(
         fontFamily = Fonts.QuickSandRegular,
-        fontSize = 16.sp,
+        fontSize = 20.sp,
         color = Beige
+    ),
+    body2 = TextStyle(
+        fontFamily = Fonts.QuickSandRegular,
+        fontSize = 14.sp,
+        color = BeigeSemiTransparent
     ),
     button = TextStyle(
         fontFamily = Fonts.QuickSandRegular,
-        fontSize = 16.sp,
+        fontSize = 20.sp,
         color = Beige
     )
 )

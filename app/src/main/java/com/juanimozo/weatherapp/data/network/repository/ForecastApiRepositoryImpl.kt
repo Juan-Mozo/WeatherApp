@@ -1,5 +1,6 @@
 package com.juanimozo.weatherapp.data.network.repository
 
+import android.util.Log
 import com.juanimozo.weatherapp.data.network.util.ConvertCityDto
 import com.juanimozo.weatherapp.data.network.util.ConvertForecastDto
 import com.juanimozo.weatherapp.domain.model.CityModel
@@ -14,16 +15,18 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import javax.inject.Inject
 
+const val TAG = "ForecastApiRepositoryImpl"
+
 class ForecastApiRepositoryImpl @Inject constructor(
     private val api: AccuWeatherApi
 ): ForecastApiRepository {
 
     override fun getHourlyForecast(
-        locationKey: Int,language: String, metric: Boolean
+        locationKey: Int, language: String, metric: Boolean
     ): Flow<Resource<List<HourlyForecastModel>>> = flow {
         try {
             // Get hourly forecast from AccuWeatherApi
-            val hourlyForecastDto = api.getHourlyForecast(locationKey, language, metric)
+            val hourlyForecastDto = api.getHourlyForecast(locationKey, language, metric).toList()
             // Convert dto to model
             val hourlyForecast = ConvertForecastDto().toHourlyForecastModel(hourlyForecastDto)
             // Emit result
@@ -49,11 +52,11 @@ class ForecastApiRepositoryImpl @Inject constructor(
     }
 
     override fun getCurrentConditions(
-        locationKey: Int
+        locationKey: Int, language: String
     ): Flow<Resource<CurrentConditionsModel>> = flow {
         try {
             // Get current forecast conditions from AccuWeatherApi
-            val currentForecastDto = api.getCurrentConditions(locationKey)
+            val currentForecastDto = api.getCurrentConditions(locationKey, language)
             // Convert dto to model. Just take the first result
             val currentConditions = ConvertForecastDto().toCurrentConditionsModel(currentForecastDto)
             // Emit result
@@ -67,7 +70,7 @@ class ForecastApiRepositoryImpl @Inject constructor(
         query: String, language: String
     ): Flow<Resource<List<CityModel>>> = flow {
         try {
-            val citiesDto = api.searchCity(q = query, language = language)
+            val citiesDto = api.searchCity(q = query, language = language).toList()
             val cities = ConvertCityDto.ToCityModel.fromSearchCity(citiesDto)
             emit(Resource.Success(data = cities))
         } catch (e: HttpException) {

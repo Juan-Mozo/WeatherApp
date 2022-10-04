@@ -4,16 +4,16 @@ import com.juanimozo.weatherapp.R
 
 class Forecast {
 
-    sealed class Weather(icon: Int, text: String) {
+    sealed class Weather(val icon: Int, val text: String) {
         class Sunny(icon: Int = R.drawable.sun, text: String = "Sunny"): Weather(icon = icon, text = text)
-        class ClearNight(icon: Int = R.drawable.sun, text: String = "Clear"): Weather(icon = icon, text = text)
+        class ClearNight(icon: Int = R.drawable.moon, text: String = "Clear night"): Weather(icon = icon, text = text)
         class Cloudy(icon: Int = R.drawable.cloudy, text: String = "Cloudy"): Weather(icon = icon, text = text)
-        class CloudyNight(icon: Int = R.drawable.sun, text: String = "Rain"): Weather(icon = icon, text = text)
+        class CloudyNight(icon: Int = R.drawable.cloudy_night, text: String = "Cloudy night"): Weather(icon = icon, text = text)
         class Rain(icon: Int = R.drawable.rain, text: String = "Rain"): Weather(icon = icon, text = text)
-        class RainyNight(icon: Int = R.drawable.sun, text: String = "Rain"): Weather(icon = icon, text = text)
+        class RainyNight(icon: Int = R.drawable.drizzle_night, text: String = "Drizzle night"): Weather(icon = icon, text = text)
         class Storm(icon: Int = R.drawable.storm, text: String = "Storm"): Weather(icon = icon, text = text)
         class Snow(icon: Int = R.drawable.snow, text: String = "Snow"): Weather(icon = icon, text = text)
-        class Windy(icon: Int = R.drawable.cloudy, text: String = "Snow"): Weather(icon = icon, text = text)
+        class Windy(icon: Int = R.drawable.windy, text: String = "Windy"): Weather(icon = icon, text = text)
     }
 
     fun setWeatherWithIcon(iconNumber: Int): Weather {

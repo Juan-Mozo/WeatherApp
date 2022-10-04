@@ -90,6 +90,9 @@ dependencies {
     // Coroutines
     implementation coroutines.kotlinx_coroutines
 
+    // Lottie
+    implementation lottie.compose
+
     // Services
     implementation "com.google.android.gms:play-services-location:20.0.0"
 

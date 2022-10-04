@@ -19,9 +19,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.juanimozo.core_util.language.Language
+import com.juanimozo.weatherapp.util.language.Language
 import com.juanimozo.weatherapp.R
 import com.juanimozo.weatherapp.presentation.feature_login.UserViewModel
+import com.juanimozo.weatherapp.ui.components.ColumnItem
+import com.juanimozo.weatherapp.ui.components.SelectedColumnItem
 import com.juanimozo.weatherapp.ui.theme.*
 
 @Composable
@@ -33,7 +35,9 @@ fun RegistrationScreen(navController: NavController) {
 
         // Title
         Box (
-            modifier = Modifier.fillMaxWidth().height(250.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(250.dp)
         ) {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -83,21 +87,21 @@ fun RegistrationScreen(navController: NavController) {
                     .fillMaxWidth()
                     .padding(horizontal = Values.Padding.medium),
                 value = viewModel.registrationState.value.userName,
-                onValueChange = { query -> viewModel.onEvent(RegistrationEvents.UpdateNameField(query)) },
+                onValueChange = { query -> viewModel.onRegistrationEvent(RegistrationEvents.UpdateNameField(query)) },
                 leadingIcon = { Icon(imageVector = Icons.Default.Person, contentDescription = "Person") },
                 label = { Text(text = "Insert your name") },
                 singleLine = true,
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    backgroundColor = MaterialTheme.colors.primaryVariant,
-                    unfocusedBorderColor = MaterialTheme.colors.secondary
+                    backgroundColor = MaterialTheme.weatherPalette.textFieldBackground,
+                    unfocusedBorderColor = MaterialTheme.weatherPalette.textFieldUnfocusedBorderColor
                 )
             )
         }
 
         // List of languages to select
         Column (
-            modifier = Modifier.
-                padding(vertical = Values.Padding.medium)
+            modifier = Modifier
+                .padding(vertical = Values.Padding.medium)
                 .fillMaxWidth()
                 .fillMaxHeight(0.75f),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -115,11 +119,11 @@ fun RegistrationScreen(navController: NavController) {
                 items(Language.languagesList) { language ->
                     // Check whether language is already selected
                     if (language == viewModel.registrationState.value.selectedLanguage) {
-                        SelectedLanguageItem(language = language)
+                        SelectedColumnItem(title = language.translatedName)
                     } else {
-                        LanguageItem(
-                            language = language,
-                            onSelectCard = { viewModel.onEvent(RegistrationEvents.SelectLanguage(language)) }
+                        ColumnItem(
+                            title = language.translatedName,
+                            onSelectCard = { viewModel.onRegistrationEvent(RegistrationEvents.SelectLanguage(language)) }
                         )
                     }
                     Divider(

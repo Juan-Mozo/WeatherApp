@@ -27,9 +27,11 @@ interface AccuWeatherApi {
         @Query("metric") metric: Boolean
     ): WeeklyForecast
 
+    // Sadly it doesn't have to choose metric units :/
     @GET("/currentconditions/v1/{locationKey}?apikey=$API_KEY&details=true")
     suspend fun getCurrentConditions(
-        @Path("locationKey") locationKey: Int
+        @Path("locationKey") locationKey: Int,
+        @Query("language") language: String
     ): CurrentConditions
 
     @GET("/locations/v1/cities/geoposition/search?apikey=$API_KEY")

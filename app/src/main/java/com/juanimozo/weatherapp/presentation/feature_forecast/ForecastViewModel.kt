@@ -5,7 +5,9 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.juanimozo.core_util.language.Language
+import androidx.navigation.NavController
+import com.juanimozo.weatherapp.data.database.forecast.entity.AccountEntity
+import com.juanimozo.weatherapp.util.language.Language
 import com.juanimozo.weatherapp.util.resource.Resource
 import com.juanimozo.weatherapp.domain.model.AccountModel
 import com.juanimozo.weatherapp.domain.use_cases.feature_forecast.forecast.ForecastUseCases
@@ -31,7 +33,9 @@ class ForecastViewModel @Inject constructor(
     val user: State<AccountModel> = _user
 
     private var getForecastJob: Job? = null
+    private var getCurrentCityJob: Job? = null
     private var getUserJob: Job? = null
+    private var deleteUserJob: Job? = null
 
     init {
         getUserAndForecast()
@@ -55,6 +59,7 @@ class ForecastViewModel @Inject constructor(
                                 currentCityLocationKey = locationKey!!
                             )
                             // Get forecast information
+                            getCurrentCity(result.data.accountId)
                             getForecast(language, locationKey, metric)
                         }
                     }
@@ -64,17 +69,35 @@ class ForecastViewModel @Inject constructor(
         }
     }
 
+    private fun getCurrentCity(id: Int) {
+        getCurrentCityJob?.cancel()
+        getCurrentCityJob = viewModelScope.launch {
+            userUseCases.getCurrentCityUseCase.invoke(id).collect { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        _forecastState.value = forecastState.value.copy(
+                            currentCityName = result.data?.name ?: ""
+                        )
+                    }
+                    is Resource.Error -> {
+                        Log.e(TAG, "Error while getting current city")
+                    }
+                }
+            }
+        }
+    }
+
     // Call all forecast functions
     private fun getForecast(language: Language, locationKey: Int, metric: Boolean) {
         getForecastJob?.cancel()
         getForecastJob = viewModelScope.launch {
-            getWeeklyForecast(language, locationKey, metric)
+            getWeeklyForecast(locationKey, language, metric)
             getHourlyForecast(locationKey, language, metric)
-            getCurrentConditions(locationKey)
+            getCurrentConditions(locationKey, language)
         }
     }
 
-    private suspend fun getWeeklyForecast(language: Language, locationKey: Int, metric: Boolean) {
+    private suspend fun getWeeklyForecast(locationKey: Int, language: Language, metric: Boolean) {
         forecastUseCases.getWeeklyForecastUseCase.invoke(
             locationKey = locationKey, language = language.abbr, metric = metric
         ).collect { result ->
@@ -114,9 +137,9 @@ class ForecastViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getCurrentConditions(locationKey: Int) {
+    private suspend fun getCurrentConditions(locationKey: Int, language: Language) {
         forecastUseCases.getCurrentConditionsUseCase.invoke(
-            locationKey = locationKey
+            locationKey = locationKey, language = language.abbr
         ).collect { result ->
             when (result) {
                 is Resource.Success -> {
@@ -135,4 +158,17 @@ class ForecastViewModel @Inject constructor(
             }
         }
     }
+
+    fun deleteAccount(navController: NavController, route: String) {
+        deleteUserJob?.cancel()
+        deleteUserJob = viewModelScope.launch {
+            // Delete user
+            userUseCases.deleteAccountUseCase.invoke(
+                id = user.value.accountId
+            )
+            // Navigate to AuthScreen
+            navController.navigate(route)
+        }
+    }
+
 }

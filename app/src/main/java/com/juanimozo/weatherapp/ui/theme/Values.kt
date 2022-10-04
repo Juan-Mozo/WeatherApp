@@ -26,4 +26,10 @@ class Values {
         }
     }
 
+    class Image {
+        companion object {
+            val smallWeatherIcon = 30.dp
+        }
+    }
+
 }

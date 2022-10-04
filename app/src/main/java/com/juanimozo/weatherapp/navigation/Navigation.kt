@@ -8,6 +8,8 @@ import androidx.navigation.compose.composable
 import com.juanimozo.weatherapp.presentation.feature_forecast.current_forecast_details.CurrentForecastDetailsScreen
 import com.juanimozo.weatherapp.presentation.feature_forecast.forecast_screen.ForecastScreen
 import com.juanimozo.weatherapp.presentation.feature_login.auth_screen.AuthScreen
+import com.juanimozo.weatherapp.presentation.feature_login.configuration.language.SelectLanguageScreen
+import com.juanimozo.weatherapp.presentation.feature_login.configuration.unit.SelectUnitsScreen
 import com.juanimozo.weatherapp.presentation.feature_login.search_city_screen.SearchCityScreen
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -32,9 +34,20 @@ fun Navigation(navController: NavHostController) {
         composable(Screens.Forecast.route) {
             ForecastScreen(navController = navController)
         }
+
         // Forecast Details
         composable(Screens.CurrentForecastDetails.route) {
-            CurrentForecastDetailsScreen()
+            CurrentForecastDetailsScreen(navController = navController)
+        }
+
+        // Configuration
+        // Units
+        composable(Screens.SelectUnits.route) {
+            SelectUnitsScreen(navController = navController)
+        }
+        // Language
+        composable(Screens.SelectLanguage.route) {
+            SelectLanguageScreen(navController = navController)
         }
     }
 }

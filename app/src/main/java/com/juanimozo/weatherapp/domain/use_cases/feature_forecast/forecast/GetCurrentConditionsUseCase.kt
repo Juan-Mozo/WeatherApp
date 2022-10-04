@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 class GetCurrentConditionsUseCase(
     private val repository: ForecastApiRepository
 ) {
-    operator fun invoke(locationKey: Int): Flow<Resource<CurrentConditionsModel>> {
-        return repository.getCurrentConditions(locationKey)
+    operator fun invoke(locationKey: Int, language: String): Flow<Resource<CurrentConditionsModel>> {
+        return repository.getCurrentConditions(locationKey, language)
     }
 }

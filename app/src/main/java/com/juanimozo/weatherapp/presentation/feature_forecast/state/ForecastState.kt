@@ -8,5 +8,6 @@ data class ForecastState(
     val currentCondition: CurrentConditionsModel? = null,
     val hourlyForecast: List<HourlyForecastModel> = emptyList(),
     val weeklyForecast: List<DailyForecastModel> = emptyList(),
+    val currentCityName: String = "",
     val isContentLoaded: Boolean = false
 )

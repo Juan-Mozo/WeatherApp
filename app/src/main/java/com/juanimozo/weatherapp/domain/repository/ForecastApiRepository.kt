@@ -13,7 +13,7 @@ interface ForecastApiRepository {
 
     fun getWeeklyForecast(locationKey: Int, language: String, metric: Boolean): Flow<Resource<List<DailyForecastModel>>>
 
-    fun getCurrentConditions(locationKey: Int): Flow<Resource<CurrentConditionsModel>>
+    fun getCurrentConditions(locationKey: Int, language: String): Flow<Resource<CurrentConditionsModel>>
 
     fun searchCityByName(query: String, language: String): Flow<Resource<List<CityModel>>>
 

@@ -2,7 +2,6 @@ package com.juanimozo.weatherapp.data.database.forecast.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.juanimozo.core_util.language.Language
 
 @Entity(tableName = "account")
 data class AccountEntity(

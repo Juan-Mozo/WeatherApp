@@ -5,8 +5,8 @@ import com.juanimozo.weatherapp.data.network.accuweather_api.weekly_forecast.Nig
 import com.juanimozo.weatherapp.data.network.accuweather_api.weekly_forecast.Temperature
 
 data class DailyForecastModel(
-    val Date: String,
-    val Day: Day,
-    val Night: Night,
-    val Temperature: Temperature
+    val date: String,
+    val day: Day,
+    val night: Night,
+    val temperature: Temperature
 )

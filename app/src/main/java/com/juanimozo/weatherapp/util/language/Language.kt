@@ -1,4 +1,4 @@
-package com.juanimozo.core_util.language
+package com.juanimozo.weatherapp.util.language
 
 sealed class Language(val abbr: String, val translatedName: String) {
 

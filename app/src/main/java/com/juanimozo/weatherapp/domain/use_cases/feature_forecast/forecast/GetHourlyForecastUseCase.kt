@@ -8,7 +8,11 @@ import kotlinx.coroutines.flow.Flow
 class GetHourlyForecastUseCase(
     private val repository: ForecastApiRepository
 ) {
-    operator fun invoke(locationKey: Int, language: String, metric: Boolean): Flow<Resource<List<HourlyForecastModel>>> {
-        return repository.getHourlyForecast(locationKey, language , metric)
+    operator fun invoke(
+        locationKey: Int,
+        language: String,
+        metric: Boolean
+    ): Flow<Resource<List<HourlyForecastModel>>> {
+        return repository.getHourlyForecast(locationKey, language, metric)
     }
 }

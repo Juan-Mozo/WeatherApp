@@ -9,59 +9,51 @@ import com.juanimozo.weatherapp.domain.model.HourlyForecastModel
 
 class ConvertForecastDto {
 
-    fun toHourlyForecastModel(dto: List<HourlyForecastItem>): List<HourlyForecastModel>? {
-        // Create a new list with the model
-        val newList: MutableList<HourlyForecastModel>? = null
-        // Convert each HourlyForecastItem to the model and add it to the list
-        for (i in dto) {
-            newList?.add(
-                HourlyForecastModel(
-                    DateTime = i.DateTime,
-                    HasPrecipitation = i.HasPrecipitation,
-                    IconPhrase = i.IconPhrase,
-                    IsDaylight = i.IsDaylight,
-                    PrecipitationIntensity = i.PrecipitationIntensity,
-                    PrecipitationProbability = i.PrecipitationProbability,
-                    PrecipitationType = i.PrecipitationType,
-                    Temperature = i.Temperature
-                )
+    fun toHourlyForecastModel(dto: List<HourlyForecastItem>): List<HourlyForecastModel> {
+        val convertedDto = dto.map { item ->
+            HourlyForecastModel(
+                dateTime = item.DateTime,
+                hasPrecipitation = item.HasPrecipitation,
+                iconPhrase = item.IconPhrase,
+                isDaylight = item.IsDaylight,
+                precipitationIntensity = item.PrecipitationIntensity,
+                precipitationProbability = item.PrecipitationProbability,
+                precipitationType = item.PrecipitationType,
+                temperature = item.Temperature,
+                weatherIcon = item.WeatherIcon
             )
         }
-        return newList
+        return convertedDto
     }
 
-    fun toDailyForecastModel(dto: List<DailyForecast>): List<DailyForecastModel>? {
-        // Create a new list with the model
-        val newList: MutableList<DailyForecastModel>? = null
-        // Convert each DailyForecast to the model and add it to the list
-        for (i in dto) {
-            newList?.add(
-                DailyForecastModel(
-                    Date = i.Date,
-                    Day = i.Day,
-                    Night = i.Night,
-                    Temperature = i.Temperature
-                )
+    fun toDailyForecastModel(dto: List<DailyForecast>): List<DailyForecastModel> {
+        val convertedDto = dto.map { item ->
+            DailyForecastModel(
+                date = item.Date,
+                day = item.Day,
+                night = item.Night,
+                temperature = item.Temperature
             )
         }
-        return newList
+        return convertedDto
     }
 
     fun toCurrentConditionsModel(dto: List<CurrentConditionsItem>): CurrentConditionsModel {
         // Just take the first of the list
-        val f = dto[0]
+        val first = dto[0]
         // Return the model
         return CurrentConditionsModel(
-            CloudCover = f.CloudCover,
-            HasPrecipitation = f.HasPrecipitation,
-            IsDayTime = f.IsDayTime,
-            Precip1hr = f.Precip1hr,
-            Pressure = f.Pressure,
-            RealFeelTemperature = f.RealFeelTemperature,
-            RelativeHumidity = f.RelativeHumidity,
-            Temperature = f.Temperature,
-            UVIndex = f.UVIndex,
-            Wind = f.Wind
+            cloudCover = first.CloudCover,
+            hasPrecipitation = first.HasPrecipitation,
+            isDayTime = first.IsDayTime,
+            precip1hr = first.Precip1hr,
+            pressure = first.Pressure,
+            realFeelTemperature = first.RealFeelTemperature,
+            relativeHumidity = first.RelativeHumidity,
+            temperature = first.Temperature,
+            uVIndex = first.UVIndex,
+            wind = first.Wind,
+            weatherIcon = first.WeatherIcon
         )
     }
 

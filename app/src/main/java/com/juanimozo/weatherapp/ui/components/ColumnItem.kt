@@ -1,4 +1,4 @@
-package com.juanimozo.weatherapp.presentation.feature_login.registration
+package com.juanimozo.weatherapp.ui.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
@@ -8,18 +8,19 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.juanimozo.core_util.language.Language
 import com.juanimozo.weatherapp.ui.theme.Values
+import com.juanimozo.weatherapp.ui.theme.weatherPalette
+import com.juanimozo.weatherapp.util.language.Language
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun LanguageItem(language: Language, onSelectCard: () -> Unit) {
+fun ColumnItem(title: String, onSelectCard: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(horizontal = Values.Padding.large)
             .fillMaxWidth()
             .height(Values.Card.languageCardHeight),
-        backgroundColor = MaterialTheme.colors.primaryVariant,
+        backgroundColor = MaterialTheme.weatherPalette.unselectedColumnItem,
         onClick = onSelectCard
     ) {
         Row(
@@ -28,7 +29,7 @@ fun LanguageItem(language: Language, onSelectCard: () -> Unit) {
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = language.translatedName,
+                text = title,
                 style = MaterialTheme.typography.subtitle1
             )
         }
@@ -36,7 +37,7 @@ fun LanguageItem(language: Language, onSelectCard: () -> Unit) {
 }
 
 @Composable
-fun SelectedLanguageItem(language: Language) {
+fun SelectedColumnItem(title: String) {
     // Card with selected language
     Card(
         modifier = Modifier
@@ -51,7 +52,7 @@ fun SelectedLanguageItem(language: Language) {
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = language.translatedName,
+                text = title,
                 style = MaterialTheme.typography.subtitle2
             )
         }

@@ -8,22 +8,19 @@ class ConvertCityDto {
 
     object ToCityModel {
 
-        fun fromSearchCity(dto: List<CitySearchItem>): List<CityModel>? {
+        fun fromSearchCity(dto: List<CitySearchItem>): List<CityModel> {
             // Create a new list with the model
-            val newList: MutableList<CityModel>? = null
-            // Convert each HourlyForecastItem to the model and add it to the list
-            for (i in dto) {
-                newList?.add(
-                    CityModel(
-                        Key = i.Key,
-                        LocalizedName = i.LocalizedName
-                    )
+            val convertedCity = dto.map { city ->
+                CityModel(
+                    Key = city.Key,
+                    LocalizedName = city.LocalizedName
                 )
             }
-            return newList
+
+            return convertedCity
         }
 
-        fun fromGeoPosition(dto: GeoPosition): CityModel? {
+        fun fromGeoPosition(dto: GeoPosition): CityModel {
             return CityModel(
                 Key = dto.Key,
                 LocalizedName = dto.LocalizedName

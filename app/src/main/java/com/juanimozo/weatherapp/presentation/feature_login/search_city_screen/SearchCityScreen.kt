@@ -5,15 +5,18 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.juanimozo.weatherapp.presentation.city.CityItem
 import com.juanimozo.weatherapp.presentation.feature_login.UserViewModel
-import com.juanimozo.weatherapp.ui.theme.Values
+import com.juanimozo.weatherapp.ui.theme.*
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -43,25 +46,38 @@ fun SearchCityScreen(
 
         Spacer(modifier = Modifier.height(Values.Spacer.large))
 
+        // Search with gps
         Row(
             modifier = Modifier
-                .padding(horizontal = Values.Padding.large)
+                .padding(horizontal = Values.Padding.small)
                 .fillMaxWidth()
         ) {
             Card(
                 modifier = Modifier.fillMaxWidth(),
+                backgroundColor = LightGrey,
                 onClick = { viewModel.searchCityByGeoPosition(navController)}
             ) {
-                Box(
+                Row(
                     modifier = Modifier.padding(Values.Padding.medium),
-                    contentAlignment = Alignment.CenterStart
                 ) {
-                    Text(text = "Search with location")
+                    Icon(
+                        modifier = Modifier.padding(horizontal = Values.Padding.medium),
+                        imageVector = Icons.Default.LocationOn,
+                        contentDescription = "Search current location"
+                    )
+                    Text(
+                        text = "Search with location",
+                        style = TextStyle(
+                            fontFamily = Fonts.QuickSandRegular,
+                            fontSize = 20.sp,
+                            color = DarkGreyTeal
+                        )
+                    )
                 }
             }
         }
 
-        Spacer(modifier = Modifier.height(Values.Spacer.medium))
+        Spacer(modifier = Modifier.height(Values.Spacer.large))
 
         // Search city by name
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -78,13 +94,13 @@ fun SearchCityScreen(
                     Text(text = "Search city...") },
                 singleLine = true,
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    backgroundColor = MaterialTheme.colors.primaryVariant,
-                    unfocusedBorderColor = MaterialTheme.colors.secondary
+                    backgroundColor = MaterialTheme.weatherPalette.textFieldBackground,
+                    unfocusedBorderColor = MaterialTheme.weatherPalette.textFieldUnfocusedBorderColor
                 )
             )
         }
 
-        Spacer(modifier = Modifier.height(Values.Spacer.small))
+        Spacer(modifier = Modifier.height(Values.Spacer.medium))
 
         // Results
         Column (
@@ -93,8 +109,6 @@ fun SearchCityScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            // ToDo:: -1- *FIX* / Priority: HIGH
-            // Description: Doesn't show
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -107,8 +121,10 @@ fun SearchCityScreen(
                         }
                     )
                     Divider(
-                        color = MaterialTheme.colors.onBackground,
-                        modifier = Modifier.padding(vertical = Values.Padding.small)
+                        modifier = Modifier
+                            .padding(vertical = Values.Padding.medium)
+                            .fillMaxWidth(0.75f),
+                        color = MaterialTheme.colors.onBackground
                     )
                 }
             }

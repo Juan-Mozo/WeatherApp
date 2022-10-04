@@ -105,7 +105,11 @@ object AppModule {
             createAccountUseCase = CreateAccountUseCase(repository),
             getAccountUseCase = GetAccountUseCase(repository),
             cityUseCase = CityUseCase(repository),
-            locationUseCase = LocationUseCase(repository)
+            locationUseCase = LocationUseCase(repository),
+            getCurrentCityUseCase = GetCurrentCityUseCase(repository),
+            deleteAccountUseCase = DeleteAccountUseCase(repository),
+            updateLanguageUseCase = UpdateLanguageUseCase(repository),
+            updateUnitUseCase = UpdateUnitUseCase(repository)
         )
     }
 
