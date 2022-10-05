@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App level -->
+    <string name="app_name">Clima</string>
+    <string name="save_button_text">Guardar</string>
+
+    <!-- Language -->
+    <string name="english_translated_name">Inglés</string>
+    <string name="spanish_translated_name">Español</string>
+    <string name="french_translated_name">Francés</string>
+    <string name="german_translated_name">Alemán</string>
+
+    <!-- Location Tracker -->
+    <string name="location_permission_not_granted">Location permission not granted</string>
+    <string name="turn_on_device_location">Please turn on device location</string>
+
+    <!-- CurrentForecastDetailsScreen -->
+    <string name="current_conditions_title">Condición Actual</string>
+    <string name="real_feel_title">Sensación Térmica</string>
+    <string name="wind_speed_title">Velocidad del viento</string>
+    <string name="wind_direction_title">Dirección del viento</string>
+    <string name="humidity_title">Humedad</string>
+    <string name="pressure_title">Presión</string>
+    <string name="uv_index_title">Índice UV</string>
+
+    <!-- CurrentForecastCard -->
+    <string name="currently_title">Actualmente</string>
+    <string name="feels_like_text">Sensación Térmica: </string>
+
+    <!-- SelectLanguageScreen -->
+    <string name="select_language_title">Seleccionar Lenguaje</string>
+
+    <!-- SelectUnitsScreen -->
+    <string name="select_units_title">Seleccionar Unidades</string>
+
+    <!-- RegistrationScreen -->
+    <string name="sign_up_title">Registrarse</string>
+    <string name="name_title">Nombre</string>
+    <string name="insert_name">Inserta tu nombre</string>
+    <string name="language_title">Languaje</string>
+
+    <!-- SearchCityScreen -->
+    <string name="manage_cities_title">Gestionar Ciudades</string>
+    <string name="search_with_location_title">Search with location</string>
+    <string name="search_city_textfield_label">Buscar ciudad…</string>
+
+    <!-- UserViewModel -->
+    <string name="insert_valid_name_message">Por favor insertar un nombre válido</string>
+
+    <!-- Drawer MenuItem -->
+    <string name="cities_title">Ciudades</string>
+    <string name="units_title">Unidades</string>
+    <string name="log_out_title">Cerrar sesión</string>
+</resources>

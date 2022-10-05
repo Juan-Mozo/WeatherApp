@@ -1,14 +1,11 @@
 package com.juanimozo.weatherapp.presentation.feature_forecast.forecast_screen.components.daily
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.juanimozo.weatherapp.domain.model.DailyForecastModel
-import com.juanimozo.feature_forecast.presentation.util.TemperatureFormat
 import com.juanimozo.weatherapp.data.forecast.Forecast
 import com.juanimozo.weatherapp.data.network.accuweather_api.weekly_forecast.*
 import com.juanimozo.weatherapp.presentation.feature_forecast.util.DateTime

@@ -7,9 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.juanimozo.feature_forecast.presentation.util.TemperatureFormat
+import com.juanimozo.weatherapp.R
+import com.juanimozo.weatherapp.presentation.feature_forecast.util.TemperatureFormat
 import com.juanimozo.weatherapp.data.forecast.Forecast
 import com.juanimozo.weatherapp.ui.theme.Shapes
 import com.juanimozo.weatherapp.domain.model.CurrentConditionsModel
@@ -21,6 +23,7 @@ import com.juanimozo.weatherapp.ui.theme.weatherPalette
 @Composable
 fun CurrentForecastCard(
     currentConditions: CurrentConditionsModel?,
+    isMetric: Boolean,
     navController: NavController
 ) {
 
@@ -38,13 +41,19 @@ fun CurrentForecastCard(
             backgroundColor = MaterialTheme.weatherPalette.cardBackground,
             onClick = { navController.navigate(Screens.CurrentForecastDetails.route) }
         ) {
-            CurrentForecastCardContent(currentConditions = currentConditions)
+            CurrentForecastCardContent(
+                currentConditions = currentConditions,
+                isMetric = isMetric
+            )
         }
     }
 }
 
 @Composable
-fun CurrentForecastCardContent(currentConditions: CurrentConditionsModel) {
+fun CurrentForecastCardContent(
+    currentConditions: CurrentConditionsModel,
+    isMetric: Boolean
+) {
 
     val weather: Forecast.Weather = Forecast().setWeatherWithIcon(
         iconNumber = currentConditions.weatherIcon
@@ -62,7 +71,7 @@ fun CurrentForecastCardContent(currentConditions: CurrentConditionsModel) {
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Currently",
+                text = stringResource(id = R.string.currently_title),
                 style = MaterialTheme.typography.subtitle1
             )
         }
@@ -88,11 +97,19 @@ fun CurrentForecastCardContent(currentConditions: CurrentConditionsModel) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = TemperatureFormat.formatDoubleTemperature(
+                val temperature = if (isMetric) {
+                    TemperatureFormat.formatDoubleTemperature(
                         temperature = currentConditions.temperature.Metric.Value,
                         unit = currentConditions.temperature.Metric.Unit
-                    ),
+                    )
+                } else {
+                    TemperatureFormat.formatIntTemperature(
+                        temperature = currentConditions.temperature.Imperial.Value,
+                        unit = currentConditions.temperature.Imperial.Unit
+                    )
+                }
+                Text(
+                    text = temperature,
                     style = MaterialTheme.typography.h1
                 )
             }
@@ -101,14 +118,22 @@ fun CurrentForecastCardContent(currentConditions: CurrentConditionsModel) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
-                val formattedTemperature = TemperatureFormat.formatDoubleTemperature(
-                    temperature = currentConditions.realFeelTemperature.Metric.Value,
-                    unit = currentConditions.realFeelTemperature.Metric.Unit
-                )
+                val realFeelTemperature = if (isMetric) {
+                    TemperatureFormat.formatDoubleTemperature(
+                        temperature = currentConditions.realFeelTemperature.Metric.Value,
+                        unit = currentConditions.realFeelTemperature.Metric.Unit
+                    )
+                } else {
+                    TemperatureFormat.formatIntTemperature(
+                        temperature = currentConditions.realFeelTemperature.Imperial.Value,
+                        unit = currentConditions.realFeelTemperature.Imperial.Unit
+                    )
+                }
                 Text(
-                    text = "Feels like: $formattedTemperature",
+                    text = stringResource(id = R.string.feels_like_text) + realFeelTemperature,
                     style = MaterialTheme.typography.body1
                 )
+
             }
         }
     }

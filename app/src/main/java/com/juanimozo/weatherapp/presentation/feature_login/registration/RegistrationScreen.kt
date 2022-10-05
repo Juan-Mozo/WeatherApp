@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -58,7 +59,7 @@ fun RegistrationScreen(navController: NavController) {
             ) {
                 Text (
                     modifier = Modifier.padding(top = Values.Padding.medium),
-                    text = "Sign Up",
+                    text = stringResource(id = R.string.sign_up_title),
                     style = TextStyle(
                         fontFamily = Fonts.MontserratSemiBold,
                         fontSize = 42.sp,
@@ -79,7 +80,7 @@ fun RegistrationScreen(navController: NavController) {
         ) {
             Text(
                 modifier = Modifier.padding(bottom = Values.Padding.small),
-                text = "Name",
+                text = stringResource(id = R.string.name_title),
                 style = MaterialTheme.typography.h2
             )
             OutlinedTextField(
@@ -89,7 +90,7 @@ fun RegistrationScreen(navController: NavController) {
                 value = viewModel.registrationState.value.userName,
                 onValueChange = { query -> viewModel.onRegistrationEvent(RegistrationEvents.UpdateNameField(query)) },
                 leadingIcon = { Icon(imageVector = Icons.Default.Person, contentDescription = "Person") },
-                label = { Text(text = "Insert your name") },
+                label = { Text(text = stringResource(id = R.string.insert_name)) },
                 singleLine = true,
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     backgroundColor = MaterialTheme.weatherPalette.textFieldBackground,
@@ -109,7 +110,7 @@ fun RegistrationScreen(navController: NavController) {
         ) {
             Text(
                 modifier = Modifier.padding(bottom = Values.Padding.medium),
-                text = "Language",
+                text = stringResource(id = R.string.language_title),
                 style = MaterialTheme.typography.h2
             )
             LazyColumn(
@@ -150,7 +151,7 @@ fun RegistrationScreen(navController: NavController) {
                 }
             ) {
                 Text(
-                    text = "Sign Up",
+                    text = stringResource(id = R.string.sign_up_title),
                     style = MaterialTheme.typography.button
                 )
             }

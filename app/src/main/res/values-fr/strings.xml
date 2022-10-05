@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App level -->
     <string name="app_name">Weather</string>
@@ -41,7 +42,7 @@
     <!-- SearchCityScreen -->
     <string name="manage_cities_title">Manage Cities</string>
     <string name="search_with_location_title">Search with location</string>
-    <string name="search_city_textfield_label">Search city…</string>
+    <string name="search_city_textfield_label">Search city...</string>
 
     <!-- UserViewModel -->
     <string name="insert_valid_name_message">Please insert a valid name</string>
@@ -50,5 +51,4 @@
     <string name="cities_title">Cities</string>
     <string name="units_title">Units</string>
     <string name="log_out_title">Log Out</string>
-
 </resources>

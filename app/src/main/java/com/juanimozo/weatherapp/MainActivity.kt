@@ -39,10 +39,9 @@ class MainActivity : ComponentActivity() {
         ))
 
         // Make screen occupy Status bar
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+        // window.setFlags(
+        //    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+        //    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS )
 
         setContent {
             WeatherAppTheme {

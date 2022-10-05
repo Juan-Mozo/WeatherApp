@@ -6,7 +6,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.juanimozo.feature_forecast.presentation.util.TemperatureFormat
+import com.juanimozo.weatherapp.presentation.feature_forecast.util.TemperatureFormat
 import com.juanimozo.weatherapp.ui.theme.Values
 
 @Composable

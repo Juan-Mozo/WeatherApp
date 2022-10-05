@@ -9,9 +9,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.juanimozo.weatherapp.R
 import com.juanimozo.weatherapp.navigation.Screens
 import com.juanimozo.weatherapp.presentation.feature_login.UserViewModel
 import com.juanimozo.weatherapp.presentation.feature_login.configuration.ConfigurationEvents
@@ -38,7 +40,7 @@ fun SelectUnitsScreen(
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Select Units",
+                text = stringResource(id = R.string.select_units_title),
                 style = MaterialTheme.typography.h1
             )
         }
@@ -71,7 +73,7 @@ fun SelectUnitsScreen(
                 onClick = { viewModel.updateUnit(navController) }
             ) {
                 Text(
-                    text = "Save",
+                    text = stringResource(id = R.string.save_button_text),
                     style = MaterialTheme.typography.button
                 )
             }

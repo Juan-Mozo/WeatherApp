@@ -95,6 +95,7 @@ fun ForecastScreen(
                 Row(modifier = Modifier.fillMaxWidth()) {
                     CurrentForecastCard(
                         currentConditions = forecastState.currentCondition,
+                        isMetric = viewModel.user.value.metric,
                         navController = navController
                     )
                 }

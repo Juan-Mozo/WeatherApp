@@ -11,7 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.juanimozo.weatherapp.domain.model.HourlyForecastModel
-import com.juanimozo.feature_forecast.presentation.util.TemperatureFormat
+import com.juanimozo.weatherapp.presentation.feature_forecast.util.TemperatureFormat
 import com.juanimozo.weatherapp.data.forecast.Forecast
 import com.juanimozo.weatherapp.presentation.feature_forecast.util.DateTime
 import com.juanimozo.weatherapp.ui.theme.Values
