@@ -36,11 +36,11 @@
     <!-- RegistrationScreen -->
     <string name="sign_up_title">Registrarse</string>
     <string name="name_title">Nombre</string>
-    <string name="insert_name">Inserta tu nombre</string>
+    <string name="insert_name">Inserte su nombre</string>
     <string name="language_title">Languaje</string>
 
     <!-- SearchCityScreen -->
-    <string name="manage_cities_title">Gestionar Ciudades</string>
+    <string name="manage_cities_title">Ciudades</string>
     <string name="search_with_location_title">Search with location</string>
     <string name="search_city_textfield_label">Buscar ciudad…</string>
 

@@ -1,54 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App level -->
-    <string name="app_name">Weather</string>
+    <string name="app_name">Météo</string>
     <string name="save_button_text">Save</string>
 
     <!-- Language -->
-    <string name="english_translated_name">English</string>
-    <string name="spanish_translated_name">Spanish</string>
-    <string name="french_translated_name">French</string>
-    <string name="german_translated_name">German</string>
+    <string name="english_translated_name">Anglais</string>
+    <string name="spanish_translated_name">Espagnol</string>
+    <!-- ToDo: Get french C -->
+    <string name="french_translated_name">Francais</string>
+    <string name="german_translated_name">Allemand</string>
 
     <!-- Location Tracker -->
-    <string name="location_permission_not_granted">Location permission not granted</string>
+    <string name="location_permission_not_granted">S\'il vous plaît, autoriser le site à accéder à votre position</string>
     <string name="turn_on_device_location">Please turn on device location</string>
 
     <!-- CurrentForecastDetailsScreen -->
-    <string name="current_conditions_title">Current Conditions</string>
-    <string name="real_feel_title">Real Feel</string>
-    <string name="wind_speed_title">Wind Speed</string>
-    <string name="wind_direction_title">Wind Direction</string>
-    <string name="humidity_title">Humidity</string>
-    <string name="pressure_title">Pressure</string>
-    <string name="uv_index_title">UV Index</string>
+    <string name="current_conditions_title">Condition Actuelle</string>
+    <string name="real_feel_title">T° ressentie</string>
+    <string name="wind_speed_title">Vent Moyen</string>
+    <string name="wind_direction_title">Direction du Vent</string>
+    <string name="humidity_title">Humidité</string>
+    <string name="pressure_title">Pression</string>
+    <string name="uv_index_title">Indice UV</string>
 
     <!-- CurrentForecastCard -->
-    <string name="currently_title">Currently</string>
-    <string name="feels_like_text">Feels like: </string>
+    <string name="currently_title">Actuellement</string>
+    <string name="feels_like_text">Sensation de: </string>
 
     <!-- SelectLanguageScreen -->
-    <string name="select_language_title">Select Language</string>
+    <string name="select_language_title">Sélectionner langue</string>
 
     <!-- SelectUnitsScreen -->
-    <string name="select_units_title">Select Units</string>
+    <string name="select_units_title">Sélectionner Unités</string>
 
     <!-- RegistrationScreen -->
-    <string name="sign_up_title">Sign Up</string>
-    <string name="name_title">Name</string>
-    <string name="insert_name">Insert your name</string>
+    <string name="sign_up_title">Inscrire</string>
+    <string name="name_title">Prénom</string>
+    <string name="insert_name">Insérer votre prénom</string>
     <string name="language_title">Language</string>
 
     <!-- SearchCityScreen -->
-    <string name="manage_cities_title">Manage Cities</string>
-    <string name="search_with_location_title">Search with location</string>
-    <string name="search_city_textfield_label">Search city...</string>
+    <string name="manage_cities_title">Villes</string>
+    <string name="search_with_location_title">Localisation Automatique</string>
+    <string name="search_city_textfield_label">Chercher ville…</string>
 
     <!-- UserViewModel -->
     <string name="insert_valid_name_message">Please insert a valid name</string>
 
     <!-- Drawer MenuItem -->
-    <string name="cities_title">Cities</string>
-    <string name="units_title">Units</string>
-    <string name="log_out_title">Log Out</string>
+    <string name="cities_title">Villes</string>
+    <string name="units_title">Unités de Mesure</string>
+    <string name="log_out_title">Déconnecter</string>
 </resources>
