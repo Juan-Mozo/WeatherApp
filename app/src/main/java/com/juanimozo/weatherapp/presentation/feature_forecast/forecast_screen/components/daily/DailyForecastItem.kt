@@ -20,10 +20,7 @@ fun DailyForecastItem(item: DailyForecastModel) {
             .fillMaxWidth(),
     ) {
         Column(
-            modifier = Modifier
-                .padding(horizontal = Values.Padding.medium)
-                .fillMaxWidth(0.25f)
-            ,
+            modifier = Modifier.fillMaxWidth(0.25f),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Day of the week

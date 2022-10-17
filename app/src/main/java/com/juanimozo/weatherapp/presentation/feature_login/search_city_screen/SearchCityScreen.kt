@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
@@ -12,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -28,106 +30,123 @@ fun SearchCityScreen(
 
     val viewModel: UserViewModel = hiltViewModel()
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    val scaffoldState = rememberScaffoldState()
 
-        // Title
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = Values.Padding.large),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = stringResource(id = R.string.manage_cities_title),
-                style = MaterialTheme.typography.h1
+    Scaffold(
+        scaffoldState = scaffoldState,
+        topBar = {
+            com.juanimozo.weatherapp.ui.components.navigation_drawer.AppBar(
+                onNavigationClick = {
+                    navController.popBackStack()
+                },
+                title = "",
+                icon = Icons.Default.ArrowBack
             )
         }
-
-        Spacer(modifier = Modifier.height(Values.Spacer.large))
-
-        // Search with gps
-        Row(
-            modifier = Modifier
-                .padding(horizontal = Values.Padding.small)
-                .fillMaxWidth()
+    ) { scaffoldPadding ->
+        Column(
+            modifier = Modifier.fillMaxSize().padding(scaffoldPadding),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                backgroundColor = LightGrey,
-                onClick = { viewModel.searchCityByGeoPosition(navController)}
-            ) {
-                Row(
-                    modifier = Modifier.padding(Values.Padding.medium),
-                ) {
-                    Icon(
-                        modifier = Modifier.padding(horizontal = Values.Padding.medium),
-                        imageVector = Icons.Default.LocationOn,
-                        contentDescription = "Search current location"
-                    )
-                    Text(
-                        text = stringResource(id = R.string.search_with_location_title),
-                        style = TextStyle(
-                            fontFamily = Fonts.QuickSandRegular,
-                            fontSize = 20.sp,
-                            color = DarkGreyTeal
-                        )
-                    )
-                }
-            }
-        }
 
-        Spacer(modifier = Modifier.height(Values.Spacer.large))
-
-        // Search city by name
-        Row(modifier = Modifier.fillMaxWidth()) {
-            TextField(
+            // Title
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = Values.Padding.medium),
-                value = viewModel.cityState.value.searchQuery,
-                onValueChange = { query ->
-                    viewModel.searchCityByName(query) },
-                leadingIcon = {
-                    Icon(imageVector = Icons.Default.Search, contentDescription = "Search") },
-                label = {
-                    Text(text = stringResource(id = R.string.search_city_textfield_label)) },
-                singleLine = true,
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    backgroundColor = MaterialTheme.weatherPalette.textFieldBackground,
-                    unfocusedBorderColor = MaterialTheme.weatherPalette.textFieldUnfocusedBorderColor
-                )
-            )
-        }
-
-        Spacer(modifier = Modifier.height(Values.Spacer.medium))
-
-        // Results
-        Column (
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top
-        ) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .padding(top = Values.Padding.large),
+                horizontalArrangement = Arrangement.Center
             ) {
-                items(viewModel.cityState.value.cities) { city ->
-                    CityItem(
-                        cityName = city.LocalizedName,
-                        onClick = {
-                            viewModel.updateCurrentCity(city, navController)
-                        }
+                Text(
+                    text = stringResource(id = R.string.manage_cities_title),
+                    style = MaterialTheme.typography.h1
+                )
+            }
+
+            Spacer(modifier = Modifier.height(Values.Spacer.large))
+
+            // Search with location
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = Values.Padding.small)
+                    .fillMaxWidth()
+            ) {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    backgroundColor = LightGrey,
+                    onClick = { viewModel.searchCityByGeoPosition(navController)}
+                ) {
+                    Row(
+                        modifier = Modifier.padding(Values.Padding.small),
+                    ) {
+                        Icon(
+                            modifier = Modifier,
+                            imageVector = Icons.Default.LocationOn,
+                            tint = DarkNavy,
+                            contentDescription = "Search current location"
+                        )
+                        Text(
+                            text = stringResource(id = R.string.search_with_location_title),
+                            style = TextStyle(
+                                fontFamily = Fonts.QuickSandRegular,
+                                fontSize = 20.sp,
+                                color = DarkGreyTeal
+                            ),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(Values.Spacer.large))
+
+            // Search city by name
+            Row(modifier = Modifier.fillMaxWidth()) {
+                TextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = Values.Padding.medium),
+                    value = viewModel.cityState.value.searchQuery,
+                    onValueChange = { query ->
+                        viewModel.searchCityByName(query) },
+                    leadingIcon = {
+                        Icon(imageVector = Icons.Default.Search, contentDescription = "Search") },
+                    label = {
+                        Text(text = stringResource(id = R.string.search_city_textfield_label)) },
+                    singleLine = true,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        backgroundColor = MaterialTheme.weatherPalette.textFieldBackground,
+                        unfocusedBorderColor = MaterialTheme.weatherPalette.textFieldUnfocusedBorderColor
                     )
-                    Divider(
-                        modifier = Modifier
-                            .padding(vertical = Values.Padding.medium)
-                            .fillMaxWidth(0.75f),
-                        color = MaterialTheme.colors.onBackground
-                    )
+                )
+            }
+
+            Spacer(modifier = Modifier.height(Values.Spacer.medium))
+
+            // Results
+            Column (
+                modifier = Modifier
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top
+            ) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    items(viewModel.cityState.value.cities) { city ->
+                        CityItem(
+                            city = city,
+                            onClick = {
+                                viewModel.updateCurrentCity(city, navController)
+                            }
+                        )
+                        Divider(
+                            modifier = Modifier
+                                .padding(vertical = Values.Padding.medium)
+                                .fillMaxWidth(0.75f),
+                            color = MaterialTheme.colors.onBackground
+                        )
+                    }
                 }
             }
         }

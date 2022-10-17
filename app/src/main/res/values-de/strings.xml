@@ -8,7 +8,7 @@
     <string name="english_translated_name">Englisch</string>
     <string name="spanish_translated_name">Spanisch</string>
     <string name="french_translated_name">Französisch</string>
-    <string name="german_translated_name">Deutch</string>
+    <string name="german_translated_name">Deutsch</string>
 
     <!-- Location Tracker -->
     <string name="location_permission_not_granted">Location permission not granted</string>
@@ -31,7 +31,7 @@
     <string name="select_language_title">Sprache wählen</string>
 
     <!-- SelectUnitsScreen -->
-    <string name="select_units_title">Masseinheit wählen</string>
+    <string name="select_units_title">Maßeinheit wählen</string>
 
     <!-- RegistrationScreen -->
     <string name="sign_up_title">Registrieren</string>
@@ -49,7 +49,6 @@
 
     <!-- Drawer MenuItem -->
     <string name="cities_title">Städte</string>
-    <!-- ToDo: German double s -->
-    <string name="units_title">Masseinheiten</string>
+    <string name="units_title">Maßeinheiten</string>
     <string name="log_out_title">Abmelden</string>
 </resources>

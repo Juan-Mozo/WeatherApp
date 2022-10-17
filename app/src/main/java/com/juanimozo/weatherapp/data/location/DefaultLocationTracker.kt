@@ -42,19 +42,19 @@ class DefaultLocationTracker @Inject constructor(
         if (!hasAccessCoarseLocationPermission) {
             return Resource.Error(
                 data = null,
-                message = Resources.getSystem().getString(R.string.location_permission_not_granted)
+                message = "Location permission not granted"
             )
         }
         if (!hasAccessFineLocationPermission) {
             return Resource.Error(
                 data = null,
-                message = Resources.getSystem().getString(R.string.location_permission_not_granted)
+                message = "Location permission not granted"
             )
         }
         if (!isGpsEnabled) {
             return Resource.Error(
                 data = null,
-                message = Resources.getSystem().getString(R.string.turn_on_device_location)
+                message = "Please turn on device location"
             )
         }
 

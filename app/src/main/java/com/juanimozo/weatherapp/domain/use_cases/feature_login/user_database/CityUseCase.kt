@@ -16,13 +16,13 @@ class CityUseCase(
         val city = cityModelToCityEntity(model)
         repository.addCity(city)
 
-        repository.updateCurrentCity(model.Key.toInt(), userId)
+        repository.updateCurrentCity(model.key.toInt(), userId)
     }
 
     private fun cityModelToCityEntity(cityModel: CityModel): CityEntity {
         return CityEntity(
-            locationKey = cityModel.Key,
-            name = cityModel.LocalizedName,
+            locationKey = cityModel.key,
+            name = cityModel.localizedName,
             accountId = 0
         )
     }

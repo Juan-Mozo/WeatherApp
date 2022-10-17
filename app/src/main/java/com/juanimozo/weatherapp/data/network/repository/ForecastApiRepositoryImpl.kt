@@ -1,6 +1,5 @@
 package com.juanimozo.weatherapp.data.network.repository
 
-import android.util.Log
 import com.juanimozo.weatherapp.data.network.util.ConvertCityDto
 import com.juanimozo.weatherapp.data.network.util.ConvertForecastDto
 import com.juanimozo.weatherapp.domain.model.CityModel

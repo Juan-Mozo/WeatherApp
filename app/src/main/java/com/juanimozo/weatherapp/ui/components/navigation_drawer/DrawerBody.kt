@@ -11,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import com.juanimozo.weatherapp.ui.theme.Values
 
 @Composable
@@ -33,7 +34,7 @@ fun DrawerBody(
                 )
                 Spacer(modifier = Modifier.width(Values.Spacer.medium))
                 Text(
-                    text = item.title,
+                    text = stringResource(id = item.titleResource),
                     style = MaterialTheme.typography.body1
                 )
             }

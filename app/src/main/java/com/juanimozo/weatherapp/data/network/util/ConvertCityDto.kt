@@ -12,8 +12,10 @@ class ConvertCityDto {
             // Create a new list with the model
             val convertedCity = dto.map { city ->
                 CityModel(
-                    Key = city.Key,
-                    LocalizedName = city.LocalizedName
+                    key = city.Key,
+                    localizedName = city.LocalizedName,
+                    countryLocalizedName = city.Country.LocalizedName,
+                    regionLocalizedName = city.Region.LocalizedName
                 )
             }
 
@@ -22,8 +24,10 @@ class ConvertCityDto {
 
         fun fromGeoPosition(dto: GeoPosition): CityModel {
             return CityModel(
-                Key = dto.Key,
-                LocalizedName = dto.LocalizedName
+                key = dto.Key,
+                localizedName = dto.LocalizedName,
+                countryLocalizedName = dto.Country.LocalizedName,
+                regionLocalizedName = dto.Region.LocalizedName
             )
         }
     }

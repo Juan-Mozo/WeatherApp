@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.juanimozo.weatherapp.R
@@ -71,7 +72,7 @@ fun CurrentForecastCardContent(
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = stringResource(id = R.string.currently_title),
+                text = stringResource(R.string.currently_title),
                 style = MaterialTheme.typography.subtitle1
             )
         }
@@ -114,7 +115,7 @@ fun CurrentForecastCardContent(
                 )
             }
             Column(
-                modifier = Modifier.fillMaxWidth(0.5f),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
@@ -129,11 +130,24 @@ fun CurrentForecastCardContent(
                         unit = currentConditions.realFeelTemperature.Imperial.Unit
                     )
                 }
-                Text(
-                    text = stringResource(id = R.string.feels_like_text) + realFeelTemperature,
-                    style = MaterialTheme.typography.body1
-                )
-
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(R.string.feels_like_text),
+                        style = MaterialTheme.typography.body1,
+                        textAlign = TextAlign.Center
+                    )
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = realFeelTemperature,
+                        style = MaterialTheme.typography.body1,
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
         }
     }

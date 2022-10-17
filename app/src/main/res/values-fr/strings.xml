@@ -7,8 +7,7 @@
     <!-- Language -->
     <string name="english_translated_name">Anglais</string>
     <string name="spanish_translated_name">Espagnol</string>
-    <!-- ToDo: Get french C -->
-    <string name="french_translated_name">Francais</string>
+    <string name="french_translated_name">Français</string>
     <string name="german_translated_name">Allemand</string>
 
     <!-- Location Tracker -->

@@ -15,6 +15,8 @@ android {
         versionCode 1
         versionName "1.0"
 
+        resConfigs "en", "es", "de", "fr"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
@@ -96,7 +98,12 @@ dependencies {
     // Services
     implementation "com.google.android.gms:play-services-location:20.0.0"
 
-    testImplementation 'junit:junit:4.13.2'
+    // Testing
+    testImplementation testing.junit4
+    testImplementation testing.mockk
+    testImplementation testing.room
+    testImplementation testing.truth
+    testImplementation testing.coroutines
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

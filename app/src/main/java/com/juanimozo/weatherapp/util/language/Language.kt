@@ -7,22 +7,22 @@ sealed class Language(val abbr: String, val translatedName: String) {
 
     class English(
         abbr: String = "en-us",
-        translatedName: String = Resources.getSystem().getString(R.string.english_translated_name)
+        translatedName: String = "English"
     ): Language(abbr, translatedName)
 
     class Spanish(
         abbr: String = "es-ar",
-        translatedName: String = Resources.getSystem().getString(R.string.spanish_translated_name)
+        translatedName: String = "Español"
     ): Language(abbr, translatedName)
 
     class French
         (abbr: String = "fr-fr",
-         translatedName: String = Resources.getSystem().getString(R.string.french_translated_name)
+         translatedName: String = "Français"
     ): Language(abbr, translatedName)
 
     class German(
         abbr: String = "de-de",
-        translatedName: String = Resources.getSystem().getString(R.string.german_translated_name)
+        translatedName: String = "Deutsch"
     ): Language(abbr, translatedName)
 
     companion object {

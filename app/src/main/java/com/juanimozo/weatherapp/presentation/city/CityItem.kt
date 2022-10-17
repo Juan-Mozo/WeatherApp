@@ -8,14 +8,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.juanimozo.weatherapp.domain.model.CityModel
 import com.juanimozo.weatherapp.ui.theme.Shapes
 import com.juanimozo.weatherapp.ui.theme.Values
 import com.juanimozo.weatherapp.ui.theme.weatherPalette
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CityItem(cityName: String, onClick: () -> Unit) {
+fun CityItem(city: CityModel, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(horizontal = Values.Padding.medium)
@@ -26,12 +28,13 @@ fun CityItem(cityName: String, onClick: () -> Unit) {
         onClick = onClick
     ) {
         Row(
-            modifier = Modifier.padding(start = 16.dp),
-            horizontalArrangement = Arrangement.Center
+            modifier = Modifier.padding(horizontal = Values.Padding.small, vertical = Values.Padding.large)
         ) {
             Text(
-                text = cityName,
-                style = MaterialTheme.typography.body1
+                text = "${city.localizedName}, ${city.regionLocalizedName} - ${city.countryLocalizedName}",
+                style = MaterialTheme.typography.body1,
+                maxLines = 1,
+                textAlign = TextAlign.Center
             )
         }
     }

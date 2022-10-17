@@ -24,7 +24,7 @@
 
     <!-- CurrentForecastCard -->
     <string name="currently_title">Currently</string>
-    <string name="feels_like_text">Feels like: </string>
+    <string name="feels_like_text">Feels like:</string>
 
     <!-- SelectLanguageScreen -->
     <string name="select_language_title">Select Language</string>
